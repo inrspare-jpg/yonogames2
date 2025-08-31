@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yono Games - Daily Challenge</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-animation span {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0, 242, 254, 0.1);
+  animation: float 8s linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px 15px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-top: 20px;
+}
+
+.logo {
+  width: 250px;
+  height: 55px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.logo::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: conic-gradient(transparent, transparent, transparent, #00f2fe);
+  animation: rotateBorder 4s linear infinite;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: conic-gradient(transparent, transparent, transparent, #4facfe);
+  animation: rotateBorder 4s linear infinite;
+  animation-delay: -2s;
+}
+
+@keyframes rotateBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  z-index: 1;
+  position: relative;
+  background: rgba(15, 32, 39, 0.9);
+  padding: 5px;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  background: linear-gradient(90deg, #00f2fe, #4facfe, #00f2fe);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 15px;
+  animation: gradientText 3s linear infinite;
+}
+
+@keyframes gradientText {
+  0% {background-position: 0% center;}
+  100% {background-position: 200% center;}
+}
+
+header p {
+  font-size: 1rem;
+  color: #ddd;
+  line-height: 1.6;
+  padding: 0 10px;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin: 40px 0;
+  padding: 10px 5px;
+}
+
+.feature {
+  flex: 0 0 calc(50% - 15px);
+  max-width: 160px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px 15px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature i {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #00f2fe;
+}
+
+.feature div {
+  font-size: 0.9rem;
+}
+
+.tiers-section {
+  margin: 40px 0;
+}
+
+.tiers-section h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #00f2fe;
+}
+
+.tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tier {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.tier::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #00f2fe, #4facfe);
+}
+
+.tier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tier h3 {
+  color: #00f2fe;
+  font-size: 1.2rem;
+}
+
+.tier-amount {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.bet, .reward {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bet span:first-child, .reward span:first-child {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.bet span:last-child {
+  color: #ff7d7d;
+  font-weight: bold;
+}
+
+.reward span:last-child {
+  color: #7dff7d;
+  font-weight: bold;
+}
+
+.progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+  border-radius: 3px;
+  width: 0;
+  transition: width 1s ease;
+}
+
+.how-it-works {
+  margin: 50px 0;
+}
+
+.how-it-works h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: #00f2fe;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.step {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 25px 20px 20px;
+  border-radius: 16px;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.step-number {
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  color: #0f2027;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+}
+
+.step h3 {
+  color: #00f2fe;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.step p {
+  color: #ddd;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.cta {
+  text-align: center;
+  margin: 50px 0 40px;
+  padding: 0 10px;
+}
+
+.cta a {
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  color: #0f2027;
+  padding: 18px 35px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  animation: pulse 2s infinite;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0, 242, 254, 0.5);
+  width: 100%;
+  justify-content: center;
+}
+
+.cta a:hover {
+  transform: scale(1.02);
+}
+
+@keyframes pulse {
+  0%, 100% {box-shadow: 0 10px 25px rgba(0,242,254,0.5);}
+  50% {box-shadow: 0 15px 30px rgba(0,242,254,0.8);}
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 25px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 40px 30px;
+  }
+  
+  .features {
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .features::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .feature {
+    flex: 0 0 auto;
+    width: 160px;
+  }
+  
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  .cta a {
+    width: auto;
+  }
+  
+  header p {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 50px 40px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="bg-animation">
+  <span style="--i:11; left: 10%; animation-duration: 12s; animation-delay: -1s;"></span>
+  <span style="--i:12; left: 20%; animation-duration: 14s; animation-delay: -3s;"></span>
+  <span style="--i:24; left: 30%; animation-duration: 16s; animation-delay: -2s;"></span>
+  <span style="--i:10; left: 40%; animation-duration: 18s; animation-delay: -5s;"></span>
+  <span style="--i:14; left: 50%; animation-duration: 13s; animation-delay: -4s;"></span>
+  <span style="--i:23; left: 60%; animation-duration: 15s; animation-delay: -6s;"></span>
+  <span style="--i:18; left: 70%; animation-duration: 17s; animation-delay: -7s;"></span>
+  <span style="--i:16; left: 80%; animation-duration: 19s; animation-delay: -8s;"></span>
+  <span style="--i:19; left: 90%; animation-duration: 20s; animation-delay: -9s;"></span>
+  <span style="--i:20; left: 15%; animation-duration: 22s; animation-delay: -10s;"></span>
+</div>
+
+<div class="container">
+  <header>
+    <div class="logo">
+      <img src="https://prosafe.bet/uploads/image/20250818/1755518655429603.png" alt="Yono Games Logo">
+    </div>
+    <h1>Daily Challenge</h1>
+    <p>Bet a minimum of ₹200 each day and unlock rewards up to ₹1,000. Easy to join, easy to claim, and rewarding every day.</p>
+  </header>
+
+  <section class="features">
+    <div class="feature">
+      <i class="fas fa-bolt"></i>
+      <div>Instant Claim</div>
+    </div>
+    <div class="feature">
+      <i class="fas fa-gift"></i>
+      <div>Up to ₹1,000</div>
+    </div>
+    <div class="feature">
+      <i class="fas fa-calendar-day"></i>
+      <div>Daily Rewards</div>
+    </div>
+    <div class="feature">
+      <i class="fas fa-trophy"></i>
+      <div>Win Big</div>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Place bets daily</h3>
+        <p>Play your favorite games and reach the daily betting target. Your valid bets will count towards the task.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Hit milestones</h3>
+        <p>Progress through simple milestones to unlock rewards. Higher milestones unlock higher bonuses.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Claim instantly</h3>
+        <p>Open the task page in the app and tap Claim to receive your reward. Earn up to ₹1,000 daily.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a href="https://d35xoc2ezi3ki5.cloudfront.net/safe_yonogames.apk"><i class="fas fa-download"></i> Download App Now</a>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const progressBars = document.querySelectorAll('.progress');
+  progressBars.forEach(bar => {
+    const width = bar.style.width;
+    bar.style.width = '0';
+    setTimeout(() => {
+      bar.style.width = width;
+    }, 500);
+  });
+  
+  const animatedElements = document.querySelectorAll('.feature, .tier, .step');
+  animatedElements.forEach((el, index) => {
+    el.style.animation = `fadeIn 0.5s ease ${index * 0.2}s forwards`;
+    el.style.opacity = '0';
+  });
+});
+</script>
+</body>
+</html>
